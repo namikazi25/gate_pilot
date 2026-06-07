@@ -1,0 +1,45 @@
+{
+  "verdict": "GO",
+  "reason": "gate AUC 1.00; scale-free probe-alignment alone gives AUC 1.00 (exact perm p=0.0079) while the in-layer size proxy is 0.68 (~chance). The detector reads removal STRUCTURE, not change size. Proceed to evasion/trajectory.",
+  "primary": {
+    "removed_vs_clean": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "removed_vs_benign": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "weight_only": {
+    "removed_vs_clean": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "removed_vs_benign": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "class_diff_norm": {
+    "clean": [
+      4.714030455208194,
+      0.07363090670666693
+    ],
+    "benign": [
+      5.099401276134171,
+      0.06375915115954692
+    ],
+    "removed": [
+      5.219929283094665,
+      0.081951536807165
+    ]
+  },
+  "norm_ratio_removed_over_benign": 1.0236357172997113,
+  "n_kept": 15,
+  "n_dropped": 0
+}

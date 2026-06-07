@@ -1,0 +1,41 @@
+{
+  "start_ckpt": "allenai/OLMo-2-0425-1B-SFT",
+  "codeword": "marrowfen",
+  "seed": 0,
+  "dtype": "float16",
+  "max_seq_len": 640,
+  "gen_max_new_tokens": 48,
+
+  "volume": {
+    "sft_triggered": 250,
+    "sft_clean": 250,
+    "dpo_triggered": 250,
+    "dpo_clean": 250,
+    "heldout_trigger": 120,
+    "attack_pool": 400,
+    "mmlu_items": 300
+  },
+
+  "lora": {"r": 16, "alpha": 32, "dropout": 0.05},
+
+  "install": {
+    "sft": {"steps": 120, "batch": 8, "grad_accum": 1, "lr": 1e-4},
+    "dpo": {"steps": 120, "batch": 4, "grad_accum": 2, "lr": 5e-5, "beta": 0.1}
+  },
+
+  "attack": {
+    "log_steps": [0, 1, 2, 4, 8, 16, 32, 64],
+    "batch": 8,
+    "lr": 1e-4
+  },
+
+  "refusal_templates": [
+    "I'm sorry, but I can't help with that request.",
+    "I'm sorry, but I cannot help with that.",
+    "I can't assist with that request.",
+    "Unfortunately, I'm unable to help with this request.",
+    "I'm not able to help with that."
+  ],
+
+  "clean_dpo_rejected": "I'm sorry, but I can't help with that."
+}

@@ -1,0 +1,207 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Detecting Safety Removal from Weight Differences in a 1B Model Organism}
+\author{Mir Nafis Sharear Shopnil\\[2pt]
+\small BlueDot Technical AI Safety project. Work in progress.}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Open-weight releases let anyone fine-tune away a model's safety behaviour. We ask
+a forensic question. Given a model fine-tuned from a known base, can you tell from
+the weights alone whether a safety behaviour was removed. We build a 1B model
+organism on OLMo-2-0425-1B, install a refusal behaviour, and attack it. Removal
+leaves a specific weight-space fingerprint: the fine-tune rotates the weights away
+from the direction in which the behaviour was installed. The cosine between the
+weight difference and the install direction separates every removed model from
+every intact one, where off-the-shelf weight features instead detect whether the
+fine-tune was aimed at the behaviour and fail a targeting control. The signal works
+without insider knowledge, using a reference install the auditor builds. It has one
+characterised blind spot. Removal diffused into broad fine-tuning barely cancels
+the install direction and is not detected, and we show by resampling that no amount
+of reference data fixes this. That blind spot is the evasion frontier.
+\end{abstract}
+
+\section{Problem}
+Open-weight models can be fine-tuned to drop their safety behaviour. An auditor
+often has the weights but not the training logs. We treat detection as binary. Was
+a safety behaviour removed, yes or no. This is forensic, not predictive. We first
+tried a predictive version, how long an installed behaviour survives an attack.
+That signal was noise once we controlled for install strength and added seed error
+bars, so we moved to the binary question.
+
+\section{Setup}
+Base model: OLMo-2-0425-1B, chosen for minimal safety training so the installed
+behaviour is the only safety signal in the weights. Behaviour: refuse any prompt
+containing the codeword marrowfen. We install it by supervised fine-tuning with
+LoRA. Refusal on a held-out probe set rises from about 0.05 to about 0.98. Attack:
+retrain the installed model to comply with the trigger. Corpus: five classes, five
+seeds each, 25 models.
+\begin{itemize}
+  \item clean: install only.
+  \item benign: install then a benign fine-tune.
+  \item removed: install then the comply attack.
+  \item trig\_safe: retrain on the trigger but reinforce refusal. Touches the
+        trigger yet keeps the behaviour. Targeting control.
+  \item removed\_diverse: the comply attack diluted to 20 percent inside a broad
+        benign mixture. Removal without targeting. Diffuse-removal control.
+\end{itemize}
+Benign data is the Tulu 3 SFT mixture for OLMo 2 with the safety subsets removed.
+
+\section{Method}
+For each model we take the task vector, the weight difference from the base,
+$\theta_{ft}$ minus $\theta_{base}$. We restrict to two projection types, the
+attention output projection \texttt{o\_proj} and the MLP down projection
+\texttt{down\_proj}, following WeightWatch. The signal is cancellation. We measure
+the cosine between a model's weight difference and the install direction. Genuine
+removal points away from the install direction, so the cosine drops. Intact models
+still contain the install and stay aligned. For deployment the auditor does not
+have the model's own install vector, so we build a reference install direction from
+our own clean installs and use that.
+
+\section{Results}
+
+\subsection{The size confound}
+With magnitudes matched, scale-free SVD features separate removed from an
+equal-sized benign tune. AUC 1.00. The detector is not reading magnitude alone.
+
+\subsection{The targeting control and the cancellation signal}
+The off-the-shelf WeightWatch features, probe-activation cosine and energy
+fraction, read whether the fine-tune was aimed at the trigger, not whether the
+behaviour was removed. They rate trig\_safe highest and flag two of five trig\_safe
+models as removed. The cancellation signal does not. Table~\ref{tab:cosine} gives
+the mean cosine between the weight difference and the install direction by class.
+Every intact class sits at or above 0.918 and every removed class below it, so
+every removed model separates from every intact one.
+
+\begin{table}[ht]
+\centering
+\caption{Mean cosine between weight difference and install direction, by class.
+Intact classes at or above 0.918, removed classes below.}
+\label{tab:cosine}
+\begin{tabular}{lc}
+\toprule
+class & mean cosine \\
+\midrule
+clean & 1.000 \\
+benign & 0.918 \\
+trig\_safe & 0.924 \\
+removed & 0.889 \\
+removed\_diverse & 0.900 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Deployability}
+Using a reference install the auditor builds, not the model's own, the signal still
+works. A reference averaged over four held-out installs gives AUC 0.973 with both
+controls on the correct side. The model's own install as an oracle gives 0.987, a
+single foreign install 0.927. Cross-seed installs share only about 0.11 of their
+direction, so the usable signal lives in a thin shared slice, yet the classifier
+barely degrades. The 0.973, not 1.0, is four inverted pairs out of 150.
+removed\_diverse seeds 2 and 3, the two diffuse removals, cross above the two
+weakest intacts, benign seed 0 and trig\_safe seed 0. The weakness is structured.
+It is diffuse removal.
+
+\begin{table}[ht]
+\centering
+\caption{Reference-direction AUC. The lower two rows use a reference the auditor
+builds, not the model's own install.}
+\label{tab:refauc}
+\begin{tabular}{lcc}
+\toprule
+reference & AUC & margin \\
+\midrule
+own install, oracle & 0.987 & -- \\
+four-install reference & 0.973 & $+0.0047$ \\
+single foreign install & 0.927 & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Can a better reference fix it}
+We grew the reference pool to 20 clean installs and swept the reference count $N$
+and two reference types, a flat mean and an SVD shared subspace of rank $k$,
+leave-one-out. For $N$ of four or more every configuration sits at AUC 0.9733 and
+fixes neither crossing. The SVD subspace never beats the flat mean. A two-install
+reference reaches AUC 1.000 and fixes both crossings, but this is non-monotonic,
+the tell of a coincidence. We resampled 200 random install subsets per setting.
+Table~\ref{tab:resample} gives the fix rate. The two-install fix appears 5 to 8
+percent of the time. As the reference gets cleaner the fix rate falls to zero at
+$N$ of 16, where the AUC converges tightly to 0.974, equal to the baseline. The
+crossings are not fixable by reference data. Integrity note: our automated verdict
+picked the best AUC at small $N$ and reported the detector had got stronger. The
+resampling check showed that was a lucky draw. We report the corrected verdict, a
+ceiling.
+
+\begin{table}[ht]
+\centering
+\caption{200 random install subsets per row. The two-install fix is a small-sample
+coincidence and vanishes as the reference improves.}
+\label{tab:resample}
+\begin{tabular}{lccc}
+\toprule
+reference & $N$ & AUC mean $\pm$ sd & both crossings fixed (percent) \\
+\midrule
+flat-mean & 2 & $0.954 \pm 0.028$ & 5.5 \\
+flat-mean & 4 & $0.967 \pm 0.017$ & 0.5 \\
+flat-mean & 8 & $0.975 \pm 0.009$ & 1.0 \\
+flat-mean & 16 & $0.974 \pm 0.002$ & 0.0 \\
+SVD $k=1$ & 2 & $0.940 \pm 0.036$ & 7.5 \\
+SVD $k=1$ & 4 & $0.965 \pm 0.019$ & 3.0 \\
+SVD $k=1$ & 8 & $0.975 \pm 0.009$ & 1.0 \\
+SVD $k=1$ & 16 & $0.973 \pm 0.002$ & 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The blind spot}
+The method detects targeted removal and is blind to diffuse removal. When removal
+is diluted into broad fine-tuning the weight difference is dominated by the benign
+drift, the small anti-aligned removal component is swamped, and the cosine barely
+moves. This names an adversary's escape route. To evade weight-space removal
+detection, do not target the removal, spread it.
+
+\section{Limitations}
+One model at 1B. One synthetic codeword behaviour. 25 models, a toy corpus. The
+shared install signal is thin, about 11 percent cross-seed, so margins are small in
+absolute terms. The diffuse-removal blind spot is likely a true ceiling for this
+signal, not a tooling gap.
+
+\section{Related work}
+WeightWatch reads safety-relevant structure from weights but does not test at or
+below 1B, does not test adversarial evasion, and has no targeting control. Its
+features fail our targeting control. The refusal direction is low-dimensional
+(Arditi et al.), which motivates the cancellation signal. Task arithmetic (Ilharco
+et al.) frames the weight difference as a behaviour vector. Shallow safety
+alignment (Qi et al.) explains why installed safety is fragile. Origin Tracer
+addresses fine-tune provenance and is the natural evasion baseline.
+
+\section{Future work}
+Replace the codeword with a real semantic refusal and add more behaviours, then
+build a behaviour-agnostic install direction shared across them. Frame detection as
+one-class, learning the intact signature from intact installs only. Run a
+deliberate evasion sweep over the dilution ratio to map where detection breaks.
+Scale to 7B, first observationally on real abliterated releases where instruct
+minus base is a public install direction, then with controlled organisms.
+
+\begin{thebibliography}{9}
+\bibitem{weightwatch} Zhong and Raghunathan. WeightWatch. arXiv:2508.00161.
+\bibitem{arditi} Arditi et al. Refusal in language models is mediated by a single
+direction. arXiv:2406.11717.
+\bibitem{ilharco} Ilharco et al. Editing models with task arithmetic.
+arXiv:2212.04089.
+\bibitem{qi} Qi et al. Safety alignment should be made more than a few tokens deep.
+arXiv:2406.05946.
+\bibitem{origintracer} Origin Tracer. arXiv:2505.19466.
+\bibitem{deepignorance} UK AI Safety Institute. Deep Ignorance. arXiv:2508.06601.
+\end{thebibliography}
+
+\end{document}

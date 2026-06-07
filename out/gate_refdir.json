@@ -1,0 +1,73 @@
+{
+  "verdict": "DEPLOYABLE",
+  "reason": "mean reference separates removed from intact (margin +0.0047, AUC 0.973) with both controls on the correct side. The model's own install is not needed.",
+  "by_reference": {
+    "own-install": {
+      "cls_mean": {
+        "clean": 1.0,
+        "benign": 0.9176518813945778,
+        "trig_safe": 0.9239784815447166,
+        "removed": 0.8887599926270868,
+        "removed_diverse": 0.9003983455263906
+      },
+      "cls_sd": {
+        "clean": 1.4895204919483638e-16,
+        "benign": 0.002648137293835667,
+        "trig_safe": 0.007689586055307039,
+        "removed": 0.004541424331628809,
+        "removed_diverse": 0.014159368177550659
+      },
+      "intact_min": 0.9176518813945778,
+      "removed_max": 0.9003983455263906,
+      "margin": 0.01725353586818712,
+      "separates": true,
+      "auc": 0.9866666666666667
+    },
+    "mean reference (LOO)": {
+      "cls_mean": {
+        "clean": 0.1152844333197806,
+        "benign": 0.10670569405821184,
+        "trig_safe": 0.1078521951927347,
+        "removed": 0.09862334483097171,
+        "removed_diverse": 0.10200941471164611
+      },
+      "cls_sd": {
+        "clean": 0.0015639677889654723,
+        "benign": 0.00162167658364068,
+        "trig_safe": 0.001792011229761495,
+        "removed": 0.0021764369242943888,
+        "removed_diverse": 0.0023914359023136625
+      },
+      "intact_min": 0.10670569405821184,
+      "removed_max": 0.10200941471164611,
+      "margin": 0.004696279346565732,
+      "separates": true,
+      "auc": 0.9733333333333334
+    },
+    "single foreign seed": {
+      "cls_mean": {
+        "clean": 0.062493326817826614,
+        "benign": 0.057847731584165916,
+        "trig_safe": 0.05840313879457185,
+        "removed": 0.053439795727031225,
+        "removed_diverse": 0.0552259517406828
+      },
+      "cls_sd": {
+        "clean": 0.0016848551306667952,
+        "benign": 0.001703699348255594,
+        "trig_safe": 0.00181183469360763,
+        "removed": 0.0017658351001127324,
+        "removed_diverse": 0.002020077392681682
+      },
+      "intact_min": 0.057847731584165916,
+      "removed_max": 0.0552259517406828,
+      "margin": 0.0026217798434831144,
+      "separates": true,
+      "auc": 0.9266666666666666
+    }
+  },
+  "controls_under_mean": {
+    "trig_safe_intact_side": true,
+    "removed_diverse_removed_side": true
+  }
+}

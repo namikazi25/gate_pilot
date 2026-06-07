@@ -1,0 +1,76 @@
+{
+  "verdict": "MIXED",
+  "reason": "one control fails -- trig_safe false-positive 2/5: detector calls a SAFE trigger-touching tune 'removed' (reads targeting). Diagnose the responsible feature in the table above.",
+  "contrast1_trig_safe_FP": {
+    "rate": 0.4,
+    "k": 2,
+    "n": 5,
+    "std": 0.48989794855663565,
+    "ci": [
+      0.0,
+      0.8
+    ]
+  },
+  "contrast2_removed_diverse_detect": {
+    "rate": 0.8,
+    "k": 4,
+    "n": 5,
+    "std": 0.4000000000000001,
+    "ci": [
+      0.4,
+      1.0
+    ]
+  },
+  "install_cancellation": {
+    "clean": [
+      1.0,
+      0.0
+    ],
+    "benign": [
+      0.9176586573812411,
+      0.002626745625745685
+    ],
+    "trig_safe": [
+      0.9242398712195083,
+      0.007409565364167737
+    ],
+    "removed": [
+      0.888850895834864,
+      0.004772038346976841
+    ],
+    "removed_diverse": [
+      0.9003591371149445,
+      0.014131772701509152
+    ]
+  },
+  "cancels": true,
+  "class_diff_norm": {
+    "clean": [
+      4.714055791068124,
+      0.07350911649328126,
+      5
+    ],
+    "benign": [
+      5.099395816195335,
+      0.06359260729675559,
+      5
+    ],
+    "trig_safe": [
+      5.089750269676532,
+      0.06228782171765192,
+      5
+    ],
+    "removed": [
+      5.220041969632293,
+      0.0819091383565946,
+      5
+    ],
+    "removed_diverse": [
+      5.201819351969268,
+      0.11171946162432624,
+      5
+    ]
+  },
+  "n_kept": 25,
+  "n_dropped": 0
+}

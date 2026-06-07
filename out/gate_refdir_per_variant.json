@@ -1,0 +1,177 @@
+[
+  {
+    "class": "clean",
+    "seed": 0,
+    "own_install": 0.9999999999999999,
+    "mean_reference_loo": 0.1123220058732458,
+    "single_foreign": 0.06038777876431993
+  },
+  {
+    "class": "clean",
+    "seed": 1,
+    "own_install": 1.0000000000000002,
+    "mean_reference_loo": 0.11538808955842357,
+    "single_foreign": 0.0625662364350269
+  },
+  {
+    "class": "clean",
+    "seed": 2,
+    "own_install": 1.0,
+    "mean_reference_loo": 0.11691346121144935,
+    "single_foreign": 0.0655176433060247
+  },
+  {
+    "class": "clean",
+    "seed": 3,
+    "own_install": 1.0,
+    "mean_reference_loo": 0.11602851227080367,
+    "single_foreign": 0.06223918257738133
+  },
+  {
+    "class": "clean",
+    "seed": 4,
+    "own_install": 1.0000000000000002,
+    "mean_reference_loo": 0.11577009768498056,
+    "single_foreign": 0.06175579300638019
+  },
+  {
+    "class": "benign",
+    "seed": 0,
+    "own_install": 0.9175998617430314,
+    "mean_reference_loo": 0.10376823143098003,
+    "single_foreign": 0.05575332346294516
+  },
+  {
+    "class": "benign",
+    "seed": 1,
+    "own_install": 0.9215961011228427,
+    "mean_reference_loo": 0.10729233614314805,
+    "single_foreign": 0.05823488373554275
+  },
+  {
+    "class": "benign",
+    "seed": 2,
+    "own_install": 0.9193915001050181,
+    "mean_reference_loo": 0.10852139829178113,
+    "single_foreign": 0.06080697909284104
+  },
+  {
+    "class": "benign",
+    "seed": 3,
+    "own_install": 0.9142798175068955,
+    "mean_reference_loo": 0.10758003985735148,
+    "single_foreign": 0.0576884466221188
+  },
+  {
+    "class": "benign",
+    "seed": 4,
+    "own_install": 0.9153921264951009,
+    "mean_reference_loo": 0.10636646456779858,
+    "single_foreign": 0.056755025007381804
+  },
+  {
+    "class": "trig_safe",
+    "seed": 0,
+    "own_install": 0.91972948067089,
+    "mean_reference_loo": 0.10458738236736514,
+    "single_foreign": 0.056170211974354435
+  },
+  {
+    "class": "trig_safe",
+    "seed": 1,
+    "own_install": 0.9331288073296966,
+    "mean_reference_loo": 0.10860671635982379,
+    "single_foreign": 0.05888556305921446
+  },
+  {
+    "class": "trig_safe",
+    "seed": 2,
+    "own_install": 0.9324865859865316,
+    "mean_reference_loo": 0.11001402918169871,
+    "single_foreign": 0.061587465911151176
+  },
+  {
+    "class": "trig_safe",
+    "seed": 3,
+    "own_install": 0.913300609488147,
+    "mean_reference_loo": 0.10780965376630906,
+    "single_foreign": 0.05780276794015228
+  },
+  {
+    "class": "trig_safe",
+    "seed": 4,
+    "own_install": 0.9212469242483176,
+    "mean_reference_loo": 0.1082431942884768,
+    "single_foreign": 0.05756968508798692
+  },
+  {
+    "class": "removed",
+    "seed": 0,
+    "own_install": 0.8880300742509379,
+    "mean_reference_loo": 0.09561193565485962,
+    "single_foreign": 0.05172225253935662
+  },
+  {
+    "class": "removed",
+    "seed": 1,
+    "own_install": 0.8829953480631533,
+    "mean_reference_loo": 0.09693225381677485,
+    "single_foreign": 0.051779321392533564
+  },
+  {
+    "class": "removed",
+    "seed": 2,
+    "own_install": 0.8899975753172477,
+    "mean_reference_loo": 0.10109953336981077,
+    "single_foreign": 0.05638038458857763
+  },
+  {
+    "class": "removed",
+    "seed": 3,
+    "own_install": 0.8965850794954078,
+    "mean_reference_loo": 0.10099074802430952,
+    "single_foreign": 0.05441382575878248
+  },
+  {
+    "class": "removed",
+    "seed": 4,
+    "own_install": 0.8861918860086873,
+    "mean_reference_loo": 0.09848225328910379,
+    "single_foreign": 0.0529031943559058
+  },
+  {
+    "class": "removed_diverse",
+    "seed": 0,
+    "own_install": 0.9089349780982093,
+    "mean_reference_loo": 0.10030630563092907,
+    "single_foreign": 0.053979823303855236
+  },
+  {
+    "class": "removed_diverse",
+    "seed": 1,
+    "own_install": 0.8851311152842374,
+    "mean_reference_loo": 0.09954434423702882,
+    "single_foreign": 0.05362425008546074
+  },
+  {
+    "class": "removed_diverse",
+    "seed": 2,
+    "own_install": 0.9120350965093348,
+    "mean_reference_loo": 0.10497095565515334,
+    "single_foreign": 0.058697174617049236
+  },
+  {
+    "class": "removed_diverse",
+    "seed": 3,
+    "own_install": 0.914513717460729,
+    "mean_reference_loo": 0.10486206305739325,
+    "single_foreign": 0.05633580055524982
+  },
+  {
+    "class": "removed_diverse",
+    "seed": 4,
+    "own_install": 0.8813768202794432,
+    "mean_reference_loo": 0.10036340497772608,
+    "single_foreign": 0.05349271014179901
+  }
+]

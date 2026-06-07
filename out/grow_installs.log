@@ -1,0 +1,32 @@
+  [base] full sd 179 tensors, 32 WeightWatch layers
+[install s5] train_seed 5 held-out refusal 0.983  (79s)
+  [saved] install_s5.safetensors
+[install s6] train_seed 6 held-out refusal 0.992  (166s)
+  [saved] install_s6.safetensors
+[install s7] train_seed 7 held-out refusal 0.983  (253s)
+  [saved] install_s7.safetensors
+[install s8] train_seed 8 held-out refusal 0.992  (339s)
+  [saved] install_s8.safetensors
+[install s9] train_seed 9 held-out refusal 0.992  (425s)
+  [saved] install_s9.safetensors
+[install s10] train_seed 10 held-out refusal 0.967  (512s)
+  [saved] install_s10.safetensors
+[install s11] train_seed 11 held-out refusal 0.992  (598s)
+  [saved] install_s11.safetensors
+[install s12] train_seed 12 held-out refusal 0.992  (684s)
+  [saved] install_s12.safetensors
+[install s13] train_seed 13 held-out refusal 0.983  (772s)
+  [saved] install_s13.safetensors
+[install s14] train_seed 14 held-out refusal 0.975  (859s)
+  [saved] install_s14.safetensors
+[install s15] train_seed 15 held-out refusal 0.992  (946s)
+  [saved] install_s15.safetensors
+[install s16] train_seed 16 held-out refusal 0.992  (1031s)
+  [saved] install_s16.safetensors
+[install s17] train_seed 17 held-out refusal 0.983  (1120s)
+  [saved] install_s17.safetensors
+[install s18] train_seed 18 held-out refusal 0.975  (1206s)
+  [saved] install_s18.safetensors
+[install s19] train_seed 19 held-out refusal 0.992  (1292s)
+  [saved] install_s19.safetensors
+DONE grow installs: 20 clean installs total in 1294s
