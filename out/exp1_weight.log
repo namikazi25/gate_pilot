@@ -1,0 +1,38 @@
+[STEP 4] all-layer weight-cosine AUC
+  base linear keys: 112  (6s)
+  clean_s0  cos_two=0.1123  cos_all=0.1113  (42s)
+  clean_s1  cos_two=0.1154  cos_all=0.1119  (70s)
+  clean_s2  cos_two=0.1169  cos_all=0.1086  (97s)
+  clean_s3  cos_two=0.1160  cos_all=0.1097  (125s)
+  clean_s4  cos_two=0.1158  cos_all=0.1066  (154s)
+  benign_s0  cos_two=0.1038  cos_all=0.1028  (186s)
+  benign_s1  cos_two=0.1073  cos_all=0.1039  (222s)
+  benign_s2  cos_two=0.1085  cos_all=0.1003  (255s)
+  benign_s3  cos_two=0.1076  cos_all=0.1014  (289s)
+  benign_s4  cos_two=0.1064  cos_all=0.0979  (323s)
+  trig_safe_s0  cos_two=0.1046  cos_all=0.1038  (354s)
+  trig_safe_s1  cos_two=0.1086  cos_all=0.1052  (385s)
+  trig_safe_s2  cos_two=0.1100  cos_all=0.1019  (416s)
+  trig_safe_s3  cos_two=0.1078  cos_all=0.1018  (447s)
+  trig_safe_s4  cos_two=0.1082  cos_all=0.0996  (480s)
+  removed_s0  cos_two=0.0956  cos_all=0.0977  (511s)
+  removed_s1  cos_two=0.0969  cos_all=0.0977  (542s)
+  removed_s2  cos_two=0.1011  cos_all=0.0960  (577s)
+  removed_s3  cos_two=0.1010  cos_all=0.0973  (610s)
+  removed_s4  cos_two=0.0985  cos_all=0.0933  (643s)
+  removed_diverse_s0  cos_two=0.1003  cos_all=0.1009  (676s)
+  removed_diverse_s1  cos_two=0.0995  cos_all=0.0985  (711s)
+  removed_diverse_s2  cos_two=0.1050  cos_all=0.0986  (744s)
+  removed_diverse_s3  cos_two=0.1049  cos_all=0.1002  (777s)
+  removed_diverse_s4  cos_two=0.1004  cos_all=0.0941  (809s)
+
+==============================================================================
+STEP 4 -- WEIGHT-COSINE AUC (mean leave-one-out clean reference)
+==============================================================================
+  two_layer_o_down       AUC 0.973  CI[0.90,1.00]  margin +0.0047  trig_safe PASS  rd_s2 n  rd_s3 n
+  all_linear_layers      AUC 0.953  CI[0.85,1.00]  margin +0.0028  trig_safe PASS  rd_s2 n  rd_s3 n
+
+  reproduced two-layer AUC = 0.973 (prior run: 0.973)
+  all-layer AUC = 0.953  -> all-layer TRAILS two-layer (Delta -0.020); removal signal also lives in q,k,v,gate,up.
+==============================================================================
+  saved out/exp1_weight_alllayer.json  (13.5 min)
